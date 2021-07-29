@@ -1,9 +1,14 @@
+import React from "react";
+
+// importing general componenets
+import NavBar from "./components/general/NavBar";
 import "./App.css";
 
 function App() {
     return (
         <div className="App">
-            <h1>E-commerce Front End</h1>
+            <NavBar />
+            {/* <h1>E-commerce Front End</h1> */}
         </div>
     );
 }
