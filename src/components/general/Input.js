@@ -1,17 +1,17 @@
 import React from "react";
 import propTypes from "prop-types";
-import { placeholder } from "@babel/types";
 
-const Input = (type, name, placeholder, value, onChange) => {
+export const Input = ({ type, name, placeholder, value, onChange, style }) => {
     return (
         <div>
-            <div className="from-group">
+            <div className="form-group">
                 <input
                     type={type}
                     placeholder={placeholder}
                     name={name}
                     value={value}
                     onChange={onChange}
+                    style={style}
                 />
             </div>
         </div>
@@ -19,10 +19,10 @@ const Input = (type, name, placeholder, value, onChange) => {
 };
 
 Input.propTypes = {
-    type: propTypes.string.isRequired,
     name: propTypes.string,
     placeholder: propTypes.string,
-    value: placeholder.string.isRequired,
+    value: propTypes.string.isRequired,
+    type: propTypes.string.isRequired,
     onChange: propTypes.func.isRequired,
 };
 
