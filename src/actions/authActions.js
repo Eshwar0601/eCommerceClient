@@ -7,7 +7,7 @@ import {
     AUTH_ERROR,
 } from "./types";
 import { getServer } from "../util";
-import { setAuthToken } from "../util/setAuthToken";
+import setAuthToken from "../util/setAuthToken";
 
 // set user
 export const setCurrentUser = (user) => async (dispatch) => {
@@ -16,7 +16,7 @@ export const setCurrentUser = (user) => async (dispatch) => {
     }
 
     try {
-        const res = await axios.get(`${getServer}/api/auth`);
+        const res = await axios.get(`${getServer()}/api/auth`);
         dispatch({
             type: SET_CURRENT_USER,
             payload: res.data,
@@ -35,12 +35,12 @@ export const setCurrentUser = (user) => async (dispatch) => {
 export const register = (userData) => async (dispatch) => {
     const config = {
         headers: {
-            "Content-type": "application/json",
+            "Content-Type": "application/json",
         },
     };
     try {
         const res = await axios.post(
-            `${getServer}/api/users`,
+            `${getServer()}/api/users`,
             userData,
             config
         );
