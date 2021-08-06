@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Input } from "../general/Input";
 import { register } from "../../actions/authActions";
+import { message } from "antd";
+import { logRoles } from "@testing-library/react";
 class Register extends Component {
     constructor() {
         super();
@@ -19,21 +21,44 @@ class Register extends Component {
     //     console.log(e.target.name);
     //     this.setState({ [e.target.name]: e.target.value });
     // }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.auth.errors);
+        if (
+            nextProps &&
+            nextProps.auth.errors &&
+            nextProps.auth.errors.length > 0
+        ) {
+            nextProps.auth.errors.forEach((error) => {
+                message.error(error.msg);
+            });
+        }
+        if (nextProps.auth.isAuthenticated) {
+            message.success("Thank you for Signing Up");
+            setTimeout(() => this.props.history.push("/"), 3000);
+        }
+    }
+
     onChange(e) {
         console.log(e.target.name);
         this.setState({ [e.target.name]: e.target.value });
     }
     onSubmit() {
+        // console.log(this.props.location.search.split("?role="));
+        let role = this.props.location.search.split("?role=");
+        role = role[role.length - 1];
+        // console.log(role);
         const { name, email, password } = this.state;
         const newUser = {
             name,
             email,
             password,
+            role,
         };
         if (password === this.state.password2) {
             this.props.register(newUser);
         } else {
-            console.log("password dont match");
+            message.error("password must match !");
         }
     }
 
