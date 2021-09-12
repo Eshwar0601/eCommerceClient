@@ -17,17 +17,13 @@ class Login extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
+        // console.log(nextProps);
 
-        // if (
-        //     nextProps &&
-        //     nextProps.auth.errors &&
-        //     nextProps.auth.errors.length > 0
-        // ) {
-        //     nextProps.auth.errors.forEach((error) => {
-        //         message.error(error.msg);
-        //     });
-        // }
+        if (nextProps && nextProps.errors && nextProps.errors.length > 0) {
+            nextProps.errors.forEach((error) => {
+                message.error(error.msg);
+            });
+        }
         if (nextProps.isAuthenticated) {
             message.success("Thank you for Signing Up");
             setTimeout(() => this.props.history.push("/"), 3000);
@@ -84,6 +80,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
+    errors: state.auth.errors,
 });
 
 export default connect(mapStateToProps, { login })(withRouter(Login));

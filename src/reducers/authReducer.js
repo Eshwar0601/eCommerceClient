@@ -6,6 +6,7 @@ import {
     AUTH_ERROR,
     SUCCESSFUL_LOGIN,
     FAILURE_LOGIN,
+    LOGOUT,
 } from "../actions/types";
 import { isEmpty } from "lodash";
 import { isElement } from "react-dom/cjs/react-dom-test-utils.production.min";
@@ -37,6 +38,7 @@ export default function (state = initialState, action) {
         case FAILURE_REGISTER:
         case AUTH_ERROR:
         case FAILURE_LOGIN:
+        case LOGOUT:
             localStorage.removeItem("token");
             return {
                 ...state,

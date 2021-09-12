@@ -7,6 +7,7 @@ import {
     AUTH_ERROR,
     SUCCESSFUL_LOGIN,
     FAILURE_LOGIN,
+    LOGOUT,
 } from "./types";
 import { getServer } from "../util";
 import setAuthToken from "../util/setAuthToken";
@@ -83,8 +84,18 @@ export const login = (userData) => async (dispatch) => {
         });
         dispatch(setCurrentUser());
     } catch (err) {
-        dispatch({
-            type: FAILURE_LOGIN,
-        });
+        const error = err.response.data.errors;
+        if (error) {
+            dispatch({
+                type: ERRORS,
+                payload: error,
+            });
+        } else {
+            dispatch({
+                type: FAILURE_LOGIN,
+            });
+        }
     }
 };
+
+export const logout = () => (dispatch) => dispatch({ type: LOGOUT });
