@@ -40,7 +40,7 @@ class Register extends Component {
     }
 
     onChange(e) {
-        console.log(e.target.name);
+        // console.log(e.target.name);
         this.setState({ [e.target.name]: e.target.value });
     }
     onSubmit() {
